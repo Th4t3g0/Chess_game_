@@ -19,7 +19,7 @@ const chess_board= [[0,1,2,3,4,5,6,7],
                   ];
 
 //var white_pawn = new Piece("pawn","a3",true,true);
-var p=8;
+var p=0;
 var b1=7;
 var b2=9;
 var piece=[];
@@ -77,6 +77,7 @@ try {
       }
       piece.push(all[i].innerHTML);
       piece_before.push(i);
+      all[i].style.backgroundColor="yellow";
 //start pawn
       pawnM(all,i,"white pawn",16,"+");
       pawnM(all,i,"black Pawn",47,"-");
@@ -246,44 +247,7 @@ r=i<end
 }
 
 ////method for highllighting bishop movements
-function bishopm(all,i,piece) {
-        if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece) { 
-      for (let iii = 0; iii < 7; iii++) {
-        try {
-        all[i+b1].style.borderColor="#eb8334";
-        all[i+b2].style.borderColor="#eb8334";
-        
-          if (!(b1+i==0 || b1+i==8 || b1+i==16 || b1+i==24 || b1+i==32 || b1+i==40 || b1+i==48 || b1+i==56 )) {
-           b1+=7;
-          }
-          if (!(b2+i==7 || b2+i==15 || b2+i==23 || b2+i==31 || b2+i==39 || b2+i==47 || b2+i==55 || b1+i==63 )) {
-            b2+=9;
-          }
-        }catch (error) {
-          break;
-        }
-      }
-        b1=7;
-        b2=9;
-for (let iii = 0; iii < 7; iii++) {
-        //console.log("hello world");
-        try {
-        all[i-b1].style.borderColor="#eb8334";
-        all[i-b2].style.borderColor="#eb8334";
-         if (!(b1-i==0 || b1-i==8 || b1-i==16 || b1-i==24 || b1-i==32 || b1-i==40 || b1-i==48 || b1-i==56 )) {
-          b1+=7;
-          }
-          if (!(b2-i==7 || b2-i==15 || b2-i==23 || b2-i==31 || b2-i==39 || b2-i==47 || b2-i==55 || b1-i==63 )) {
-            b2+=9;
-            
-          }
-         }catch (error) {
 
-          break;
-        }}
-        b1=7;
-        b2=9;
-      }}
 
 
 
@@ -297,6 +261,7 @@ for (let iii = 0; iii < 7; iii++) {
 function setter(button) {
 for (let j = 0; j < button.length; j++) {
   button[j].style.removeProperty('border');
+  button[j].style.removeProperty('background-color');
 }
   
 }
@@ -328,7 +293,7 @@ function castleM(all,i,piece) {
           continue;}
         
       }
-        p=8;
+        p=0;
      for (let iii = 0; iii < 8; iii++) {
        try {
          p-=8;
@@ -340,7 +305,7 @@ function castleM(all,i,piece) {
          continue;
                           }
       }
-        p=8;
+        p=0;
 
     
       
@@ -375,11 +340,14 @@ function castleM(all,i,piece) {
       }
   ka=true;
   one=1;
-  
+}
+}
 
-    
-      
+function bishopM(all,i,name) {
+
+
   
 }
-}
+
+
 ////
