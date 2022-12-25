@@ -100,7 +100,7 @@ try {
       
 //Castle
 castleM(all,i,"white castle");
-//castleM(all,i,"black castle");
+castleM(all,i,"black castle");
 
 
 
@@ -316,20 +316,29 @@ function horsemo(all,i,piece) {
 function castleM(all,i,piece) {
 
   if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece) {
-        
+  
       for (let iii = 0; iii < 8; iii++) {
         try {
+          p+=8;
         all[i+p].style.borderColor="#eb8334";
-        p+=8;
-        } catch (error) {continue;}
+          //console.log("working1a");
+        
+        } catch (error) {
+          
+          continue;}
         
       }
         p=8;
      for (let iii = 0; iii < 8; iii++) {
        try {
+         p-=8;
         all[i+p].style.borderColor="#eb8334";
-        p-=8;
-         } catch (error) {continue;}
+         
+        
+         } catch (error) {
+         
+         continue;
+                          }
       }
         p=8;
 
@@ -340,7 +349,7 @@ function castleM(all,i,piece) {
        try {
         all[i+one].style.borderColor="#eb8334";
          for (let zz of h2) {
-           if (zz==(i+one)) {
+           if (zz==(i+one)||zz==i) {
              ka=false;
            }}
         
@@ -356,7 +365,7 @@ function castleM(all,i,piece) {
         all[i-one].style.borderColor="#eb8334";
         
          for (let zz of h1) {
-           if (zz==(i-one)) {
+           if (zz==(i-one)||zz==i) {
              ka=false;
            }}
        
