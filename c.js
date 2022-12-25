@@ -100,7 +100,7 @@ try {
       
 //Castle
 castleM(all,i,"white castle");
-castleM(all,i,"black castle");
+//castleM(all,i,"black castle");
 
 
 
@@ -334,13 +334,7 @@ function castleM(all,i,piece) {
         p=8;
 
     
-      }
-  
-  //else if(all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece){
-       
-        //console.log("hello world");
-        //all[i+)].style.borderColor="#eb8334";
-      //}
+      
    for (let iii = 0; iii < 8; iii++) {
      if (ka) {
        try {
@@ -377,5 +371,6 @@ function castleM(all,i,piece) {
     
       
   
+}
 }
 ////
