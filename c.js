@@ -29,8 +29,8 @@ var h1=[0,8,16,24,32,40,48,56];
 var h2=[7,15,23,31,39,47,55,63];
 var b9=[9,18,27,36,45,54,63,72,81,90];
 var b7=[7,14,21,28,35,42,49,56,63,70];
-var take=[]
-//var h222;
+var take=[];
+var taken=0;
 //var b77;
 //var b99;
 var one=1;
@@ -38,14 +38,6 @@ var ka=true;
 
 var er;
 
-/////////////
-//let a=document.getElementById("p1");
-//a.addEventListener("click",function(){
-//document.getElementById("empy").innerHTML=a.innerHTML;
-//a.innerHTML="";
-//});
-
-/////////////////////
 let all=document.querySelectorAll("button");
 
 
@@ -59,14 +51,15 @@ try {
   er=false;
 }
 
-
-    if(er){
+//first click
+if(er&&taken==0){
       if(piece.length>0){
         setter(all);
         piece=[];
       piece_before=[];
       
       }
+  console.log("Previous value Pushed");
       piece.push(all[i].innerHTML);
       piece_before.push(i);
       all[i].style.backgroundColor="yellow";
@@ -107,39 +100,41 @@ castleMoves(all,i,"white castle");
   
 }
 // end of the first click
+////
+   else if(er && taken!=0){
+      setter(all);
+      all[i].innerHTML=piece[0];
+     
+     console.log(piece_before)
+     
+      all[piece_before[0]].innerHTML="";
+      piece=[];
+      piece_before=[];
+     taken=[];
 
-
-
+    }
       
 /// start of the second click
     else if(!er && !piece.length==0){
-      //console.log("hello World");
-      
+
      if(!(all[i].style.borderColor=="")){
        setter(all);
       all[i].innerHTML=piece[0];
       all[piece_before].innerHTML="";
       piece=[];
       piece_before=[];
+       taken=0;
+
     } 
     }
-    ///end of the second click
-
-
-
-
-
-
-
-
-
-
-    
+    ///end of the second click   
 });}
 /////////////////
 
 ///method for highting pawn movements
 function pawnM(all,i,piece,end,sign) {
+take=TakePawnW(all,i,"white pawn");
+taken=take.length;
   let r;
 if(piece=="white pawn"){
 r=i<end
@@ -151,21 +146,20 @@ r=i<end
   if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece && r) {
         
       for (let iii = 0; iii < 2; iii++) {
-        //console.log("hello world");
-        //its a negative
         all[eval(i+sign+p)].style.borderColor="#eb8334";
         p+=8;
       }
         p=8;
       }else if(all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece){
-       
-       
         all[eval(i+sign+p)].style.borderColor="#eb8334";
       }
+
+  for (let q of take) {
+        all[q].style.borderColor="#eb1238";
+      }
+  take=[];
   
 }
-
-
 //method for clearing out borders
 function setter(button) {
 for (let j = 0; j < button.length; j++) {
@@ -174,7 +168,6 @@ for (let j = 0; j < button.length; j++) {
 }
   
 }
-
 ///horse method
 function horsemo(all,i,piece) {
    if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==piece ) {
@@ -187,8 +180,6 @@ function horsemo(all,i,piece) {
         } } }
   
 }
-
-
 function bishopMoves(all,i,name) {
   if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==name) {
 let list =BishopMatrix(i,chess_board);
@@ -199,13 +190,13 @@ let list =BishopMatrix(i,chess_board);
   }
   
 }
-
-
 //Castle method begins
 function castleMoves(all,i,name) {
   if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==name) {
 let list =castleMatrix(i,chess_board);
+    take=list;
     for (let ww = 0; ww < list.length; ww++) {
+      
       all[list[ww]].style.borderColor="#eb8334";
     }
   }
@@ -216,13 +207,8 @@ let row=Math.floor(i/8);
 let col=i%8;
 let mat=[];
   for (let ii = 0; ii < 8; ii++) {
-    //console.log(ii);
   mat.push(board[ii][col]);
-    //console.log(mat)
-   // console.log(board[row][ii]);
   mat.push(board[row][ii]);
-    
-  
   }
   mat=mat.filter(function(item){return item !==i});
   mat=mat.filter(function(element){return element !== undefined;});
@@ -242,7 +228,6 @@ let x=0;
   for (let ii = 0; ii < 8; ii++) {
     try {
       mat.push(board[row+x][col+x]);
-      
       x+=1;
     } catch (error) {
       break;
@@ -324,32 +309,38 @@ let col=i%8;
 let mat=[];
   if (all[i].getElementsByTagName("img")[0].getAttribute("alt")==name) {
     try {
-      
-  mat.push(chess_board[row+1][col+1]);
+  if (all[chess_board[row+1][col+1]].getElementsByTagName("img")[0]) {
+    mat.push(chess_board[row+1][col+1]);
+  }
+  
 } catch (error) {
   
 }
 try {
-  mat.push(chess_board[row+1][col-1]);
+  if (all[chess_board[row+1][col-1]].getElementsByTagName("img")[0]) {
+      mat.push(chess_board[row+1][col-1]);
+  }
+
 } catch (error) {
 }
 
   } else {
     try {
-      
-  mat.push(chess_board[row-1][col+1]);
+      if (all[chess_board[row-1][col+1]].getElementsByTagName("img")[0]) {
+         mat.push(chess_board[row-1][col+1]);
+      }
+ 
 } catch (error) {
   
 }
 try {
-  mat.push(chess_board[row-1][col-1]);
-} catch (error) {
-}
-
-    
+  if (all[chess_board[row-1][col-1]].getElementsByTagName("img")[0]) {
+     mat.push(chess_board[row-1][col-1]);
   }
-
-
+ 
+} catch (error) {
+} 
+  }
 return mat;
 }
 
